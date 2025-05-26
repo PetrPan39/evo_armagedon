@@ -1,0 +1,13 @@
+{
+  "Memory Engine": true,
+  "Emotion Mapping": true,
+  "Decision Tree": true,
+  "Motor Output": true,
+  "Procedural Generator": true,
+  "Telemetry Collector": true,
+  "Text Parser (NLP)": true,
+  "Emotion Vectors": true,
+  "Interaction DB": true,
+  "Scene Context Map": true,
+  "Memory Tracker": true
+}

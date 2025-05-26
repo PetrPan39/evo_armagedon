@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EVO Interface Control Panel</title>
+  <style>
+    body {
+      background-color: #0b1e2e;
+      color: #e0f0ff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    h1 {
+      color: #00bfff;
+    }
+    .section {
+      margin: 2rem;
+      border: 1px solid #144b64;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      background: rgba(0, 191, 255, 0.05);
+      width: 400px;
+    }
+    label {
+      display: block;
+      margin: 1rem 0;
+      font-weight: bold;
+    }
+    input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    .note {
+      font-size: 0.85rem;
+      color: #66b2ff;
+    }
+  </style>
+</head>
+<body>
+  <h1>EVO System Configuration</h1>
+
+  <div class="section">
+    <h3>🧠 Core Modules</h3>
+    <label><input type="checkbox" checked disabled>Astra DB Connection</label>
+    <label><input type="checkbox" checked>OpenAI Integration</label>
+    <label><input type="checkbox">FastAPI Server</label>
+    <label><input type="checkbox">Flask UI Debugging</label>
+    <label><input type="checkbox">Internal Simulation Loop</label>
+  </div>
+
+  <div class="section">
+    <h3>🧰 I/O Devices</h3>
+    <label><input type="checkbox" checked>Keyboard</label>
+    <label><input type="checkbox" checked>Mouse</label>
+    <label><input type="checkbox">Microphone</label>
+    <label><input type="checkbox">Speakers</label>
+    <label><input type="checkbox">Webcam</label>
+    <label><input type="checkbox">USB Devices</label>
+    <label><input type="checkbox">Printer Access</label>
+  </div>
+
+  <div class="section">
+    <h3>📂 File System Access</h3>
+    <label><input type="checkbox" checked>Uploads / Downloads Folder</label>
+    <label><input type="checkbox">Processed File Archive</label>
+    <label><input type="checkbox">Encrypted Temp Storage</label>
+    <p class="note">⚠ Some features may require local agent privileges or Node bridge.</p>
+  </div>
+</body>
+</html>

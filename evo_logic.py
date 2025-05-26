@@ -358,26 +358,11 @@ class EvolucniOptimalizace:
 # H4: Funkce zpracuj - převod textu na úkol
     def zpracuj(self, text):
         try:
-            task = ast.literal_eval(text)
-        except:
-            try:
-                task = float(text)
-            except:
-                task = text
-        return self.solve_task(task)
-
-# H5: Logika interferenčního zpracování a přenosu dat
-class EvoDecoderEnhanced:
-    """
-    Rozšířený dekodér EVO s logikou interferenčního přenosu a zpracování dat.
-    Zahrnuje:
-    - Výpočet interferenční amplitudy z laserových zdrojů
-    - Up-konverzi přes nelineární krystal
-    - Filtrací a transformaci pro měření mikrovoltů
-    - PNO filtr (validace), Heisenbergův filtr, predikci, spinovou fúzi a korekci
-    - Dekódování symbolů podle lookup tabulky
-    """
-    def __init__(self, laser_wavelengths=None, laser_intensities=None, lookup_table=None,
+            if isinstance(text, str) and any(op in text for op in ['+', '-', '*', '/']):
+                return float(eval(text))
+            return self.solve_task(text)
+        except Exception as e:
+            return f"Chyba při zpracování vstupu: {e}"def __init__(self, laser_wavelengths=None, laser_intensities=None, lookup_table=None,
                  alpha=0.4, threshold=0.015, crystal_lambda=440e-9):
         # Parametry laserů (v metrech)
         self.laser_wavelengths = laser_wavelengths or [850e-9, 950e-9, 1050e-9, 1150e-9, 1250e-9]

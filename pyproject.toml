@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "project_v5"
+version = "0.1.0"
+description = "EVO Project"
+authors = ["Your Name <you@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+numpy = "*"
+scipy = "*"
+scikit-learn = "*"
+qiskit = {optional = true}
+face-recognition = {optional = true}
+opencv-python = {optional = true}
+librosa = {optional = true}
+openai = "*"
+
+[tool.poetry.dev-dependencies]
+pytest = "*"
+mypy = "*"
+flake8 = "*"
+black = "*"
+
+[tool.poetry.extras]
+quantum = ["qiskit"]
+vision = ["face-recognition", "opencv-python"]
+audio = ["librosa"]

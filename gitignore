@@ -1,0 +1,23 @@
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.env
+
+# Virtual environments
+venv/
+ENV/
+env/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Sensitive
+*.token.json
+secure-connect-*/

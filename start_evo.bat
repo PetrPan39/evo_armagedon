@@ -1,4 +1,4 @@
 @echo off
-cd /d I:\EVO_ARMAGEDON_2\EVO_ARMAGEDON
+cd /d I:\EVO_ARMAGEDON_2
 python main.py
 pause

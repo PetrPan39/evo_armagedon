@@ -4,7 +4,7 @@ import importlib
 from fastapi import FastAPI, Request, UploadFile, File, HTTPException, status
 from auth import verify_token
 from quickstar_connect import init_astra_db
-from evo_core import EvolucniOptimalizace
+from evo_logic import EvolucniOptimalizace
 import modules
 
 # Fail-fast: před vytvořením instancí importujeme všechny modulové pluginy

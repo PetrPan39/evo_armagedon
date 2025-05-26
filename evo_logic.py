@@ -312,12 +312,15 @@ class EvolucniOptimalizace:
         # Teamwork
         self.teamwork = Teamwork(self)
         for spec, logic in [
-            ('matrix', """def _core(self,task):return float(np.mean(self.master.matrix.solve_linear(task['A'],task['b'])))"""),
+('matrix', """
+def _core(self,task):return float(np.mean(self.master.matrix.solve_linear(task['A'],task['b'])))"""),
             ('quadratic', """def _core(self,task):import numpy as np;return np.roots(task['quad_coeffs']).tolist()"""),
-            ('nonlinear', """def _core(self,task):return float(task['func'](np.array(task['x0'])))"""),
+('nonlinear', """
+def _core(self,task):return float(task['func'](np.array(task['x0'])))"""),
             ('quantum', """def _core(self,task):return self.master.quantum_solver.solve_gate(task['quantum_gate'],task.get('state',[1,0]))"""),
             ('evolution', """def _core(self,task):return self.master.evo.evolve(task.get('target',50))"""),
-            ('hessenberg', """def _core(self,task):return float(np.mean(self.master.matrix.hessenberg(task)))""")
+('hessenberg', """
+def _core(self,task):return float(np.mean(self.master.matrix.hessenberg(task)))""")
         ]:
             self.teamwork.add_specialist(spec, logic)
 # H2: Core funkce evoluce
@@ -362,8 +365,9 @@ class EvolucniOptimalizace:
                 return float(eval(text))
             return self.solve_task(text)
         except Exception as e:
-            return f"Chyba při zpracování vstupu: {e}"def __init__(self, laser_wavelengths=None, laser_intensities=None, lookup_table=None,
-                 alpha=0.4, threshold=0.015, crystal_lambda=440e-9):
+        except Exception as e:
+            return f"Chyba při zpracování vstupu: {e}"
+    def __init__(self, laser_wavelengths=None, laser_intensities=None, lookup_table=None,
         # Parametry laserů (v metrech)
         self.laser_wavelengths = laser_wavelengths or [850e-9, 950e-9, 1050e-9, 1150e-9, 1250e-9]
         # Relativní intenzity jednotlivých laserů
@@ -539,7 +543,7 @@ def load_plugins(plugin_folder="plugins"):
                 mod = __import__(f"{plugin_folder}.{modname}", fromlist=[modname])
                 plugins[modname] = mod
             except Exception as e:
-                print(f"[Plugin loader] Chyba při načítání {modname}: {e}")
+    return f"Chyba při zpracování vstupu: {e}"
     return plugins
 
 # I2: Spouštěcí smyčka
@@ -583,7 +587,7 @@ def load_plugin_from_bank(znacka):
             plugin_registry[znacka] = namespace
             print(f"[Plugin loader] Plugin {znacka} načten.")
     except Exception as e:
-        print(f"[Plugin loader] Chyba při načítání pluginu {znacka}: {e}")
+    return f"Chyba při zpracování vstupu: {e}"
 
 def list_plugins():
     return list(plugin_registry.keys())

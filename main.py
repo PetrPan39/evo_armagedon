@@ -1,29 +1,38 @@
 
 import os
 from dotenv import load_dotenv
-from astrapy import DataAPIClient
 
 # Načtení proměnných z .env
 load_dotenv()
 
-ASTRA_DB_ENDPOINT = os.getenv("ASTRA_DB_ENDPOINT")
+ASTRA_DB_ID = os.getenv("ASTRA_DB_ID")
+ASTRA_DB_REGION = os.getenv("ASTRA_DB_REGION")
+ASTRA_DB_KEYSPACE = os.getenv("ASTRA_DB_KEYSPACE")
 ASTRA_DB_APPLICATION_TOKEN = os.getenv("ASTRA_DB_APPLICATION_TOKEN")
 
-def connect_to_astra():
-    if not ASTRA_DB_ENDPOINT or not ASTRA_DB_APPLICATION_TOKEN:
-        raise RuntimeError("Chybí ASTRA_DB_ENDPOINT nebo ASTRA_DB_APPLICATION_TOKEN! Zkontroluj .env.")
-    client = DataAPIClient(ASTRA_DB_APPLICATION_TOKEN)
-    db = client.get_database_by_api_endpoint(ASTRA_DB_ENDPOINT)
-    print(f"✅ Připojeno k Astra DB: {db.list_collection_names()}")
-    return db
+from cassandra.cluster import Cluster
+from cassandra.auth import PlainTextAuthProvider
 
+def connect_to_astra():
+    cloud_config = {
+        'secure_connect_bundle': f'./secure-connect-{ASTRA_DB_ID}/'
+    }
+    auth_provider = PlainTextAuthProvider('token', ASTRA_DB_APPLICATION_TOKEN)
+    cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
+    session = cluster.connect()
+    session.set_keyspace(ASTRA_DB_KEYSPACE)
+    return session
+
+# Inicializace databáze
 try:
-    db = connect_to_astra()
+    session = connect_to_astra()
+    print("✅ Připojeno k Astra DB")
 except Exception as e:
     print("❌ Chyba při připojení k Astra DB:", e)
-    db = None
 
-# Spuštění API serveru nebo hlavního systému
-if __name__ == "__main__":
+# Inicializace dalších modulů (dle potřeby)
+try:
     import api_server
     api_server.run()
+except ImportError:
+    print("⚠️ Modul api_server nelze spustit – ujistěte se, že existuje a má funkci run().")
